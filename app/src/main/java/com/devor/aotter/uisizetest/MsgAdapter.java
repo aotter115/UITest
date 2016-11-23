@@ -20,17 +20,17 @@ public class MsgAdapter extends ArrayAdapter<Msg>{
 
     private int resourceId;
 
-    public MsgAdapter(Context context, int textViewResouceId, List<Msg>objects){
-        super(context, textViewResouceId, objects);
-        resourceId = textViewResouceId;
+    public MsgAdapter(Context context, int textViewResourceId, List<Msg>objects){
+        super(context, textViewResourceId, objects);
+        resourceId = textViewResourceId;
     }
 
     @Override
-    public View getView(int position, View converView, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent) {
         Msg msg = getItem(position);
         View view;
         ViewHolder viewHolder;
-        if (converView == null) {
+        if (convertView == null) {
             view = LayoutInflater.from(getContext()).inflate(resourceId, null);
             viewHolder = new ViewHolder();
             viewHolder.leftLayout = (LinearLayout) view.findViewById(R.id.left_layout);
@@ -39,13 +39,12 @@ public class MsgAdapter extends ArrayAdapter<Msg>{
             viewHolder.rightMsg = (TextView) view.findViewById(R.id.right_msg);
             view.setTag(viewHolder);
         } else {
-            view = converView;
+            view = convertView;
             viewHolder = (ViewHolder) view.getTag();
         }
         if (msg.getType() == Msg.TYPE_RECEIVED) {
             viewHolder.leftLayout.setVisibility(View.VISIBLE);
             viewHolder.rightLayout.setVisibility(View.GONE);
-            viewHolder.leftMsg.setVisibility(View.GONE);
             viewHolder.leftMsg.setText(msg.getContent());
         } else if(msg.getType() == Msg.TYPE_SENT){
             viewHolder.rightLayout.setVisibility(View .VISIBLE);
